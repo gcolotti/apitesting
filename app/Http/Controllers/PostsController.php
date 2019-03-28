@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -13,7 +14,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::get();
+
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -23,7 +26,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -34,7 +37,9 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Post::create($request->all());
+
+        return reditect()->route('posts.index')->with('success', 'Post creado con éxito.');
     }
 
     /**
@@ -45,7 +50,9 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return view('posts.show', compact('posts'));
     }
 
     /**
@@ -56,7 +63,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -68,7 +77,9 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Post::findOrFail($id)->update($request->all());
+
+        return redirect()->route('posts.index')->with('sucecss', 'Post actualizado con éxito.');
     }
 
     /**
@@ -79,6 +90,18 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::findOrFail($id)->destroy();
+
+        return redirect()->route('posts.index')->with('success', 'Post eliminado con éxito.');
+    }
+
+    /**
+     * Shows delete confirmation view
+     * @param $id
+     */
+    public function delete($id){
+        $post = Subjet::findOrFail($id);
+
+        return view('posts.delete', compact('post'));
     }
 }
