@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Subjet;
 use Illuminate\Http\Request;
 
 class SubjetsController extends Controller
