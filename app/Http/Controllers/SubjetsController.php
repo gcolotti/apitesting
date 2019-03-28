@@ -13,7 +13,9 @@ class SubjetsController extends Controller
      */
     public function index()
     {
-        //
+        $subjets = Subjet::get();
+
+        return view('subjets.index', compact('subjets'));
     }
 
     /**
@@ -23,7 +25,7 @@ class SubjetsController extends Controller
      */
     public function create()
     {
-        //
+        return view('subjets.create');
     }
 
     /**
@@ -34,7 +36,9 @@ class SubjetsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Subjet::create($request->all());
+
+        return reditect()->route('subjets.index')->with('success', 'Materia creada con éxito.');
     }
 
     /**
@@ -45,7 +49,9 @@ class SubjetsController extends Controller
      */
     public function show($id)
     {
-        //
+        $subjet = Subjet::findOrFail($id);
+
+        return view('subjets.show', compact('subjet'));
     }
 
     /**
@@ -56,7 +62,9 @@ class SubjetsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $subjet = Subjet::findOrFail($id);
+
+        return view('subjets.edit', compact('subjet'));
     }
 
     /**
@@ -68,7 +76,9 @@ class SubjetsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Subjet::findOrFail($id)->update($request->all());
+
+        return redirect()->route('subjets.index')->with('sucecss', 'Materia actualizada con éxito.');
     }
 
     /**
@@ -79,6 +89,18 @@ class SubjetsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Subjet::findOrFail($id)->destroy();
+
+        return redirect()->route('subjets.index')->with('success', 'Materia eliminada con éxito.');
+    }
+
+    /**
+     * Shows delete confirmation view
+     * @param $id
+     */
+    public function delete($id){
+        $subjet = Subjet::findOrFail($id);
+
+        return view('subjets.delete', compact('subjet'));
     }
 }
