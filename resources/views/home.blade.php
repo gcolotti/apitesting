@@ -14,7 +14,9 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a href="{{route('user.index')}}" class="btn btn-primary">
+                        Usuarios
+                    </a>
                 </div>
             </div>
         </div>

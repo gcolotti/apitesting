@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -63,7 +64,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        return view('users.edit');
+        $user = User::findOrFail($id);
+
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -83,7 +86,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'Usuario editado correctamente');
+        return redirect()->route('user.index')->with('success', 'Usuario editado correctamente');
     }
 
     /**
@@ -94,16 +97,17 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        User::findOrFail($id)->destroy();
+        User::findOrFail($id)->delete();
 
-        return redictect()->route('users.index')->with('success', 'Usuario borrado correctamente.');
+        return redirect()->route('user.index')->with('success', 'Usuario borrado correctamente.');
     }
 
     /**
      * Shows the delete confirmation view
      * @param int $id
      */
-    public function delete(int $id){
+    public function delete($id){
+
         $user = User::findOrFail($id);
 
         return view('users.delete', compact('user'));
