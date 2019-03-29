@@ -39,7 +39,7 @@ class PostsController extends Controller
     {
         Post::create($request->all());
 
-        return reditect()->route('posts.index')->with('success', 'Post creado con éxito.');
+        return redirect()->route('post.index')->with('success', 'Post creado con éxito.');
     }
 
     /**
@@ -79,7 +79,7 @@ class PostsController extends Controller
     {
         Post::findOrFail($id)->update($request->all());
 
-        return redirect()->route('posts.index')->with('sucecss', 'Post actualizado con éxito.');
+        return redirect()->route('post.index')->with('sucecss', 'Post actualizado con éxito.');
     }
 
     /**
@@ -90,9 +90,9 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        Post::findOrFail($id)->destroy();
+        Post::findOrFail($id)->delete();
 
-        return redirect()->route('posts.index')->with('success', 'Post eliminado con éxito.');
+        return redirect()->route('post.index')->with('success', 'Post eliminado con éxito.');
     }
 
     /**
@@ -100,7 +100,7 @@ class PostsController extends Controller
      * @param $id
      */
     public function delete($id){
-        $post = Subjet::findOrFail($id);
+        $post = Post::findOrFail($id);
 
         return view('posts.delete', compact('post'));
     }

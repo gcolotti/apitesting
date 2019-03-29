@@ -21,6 +21,8 @@ Route::middleware(['web', 'auth'])->group(function(){
 
     Route::resource('post', 'PostsController');
 
+    Route::get('/post/{id}/delete', 'PostsController@delete')->name('post.delete');
+
     Route::resource('subjet', 'SubjetsController');
 
     Route::resource('institute', 'InstitutesController');

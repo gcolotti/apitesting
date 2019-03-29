@@ -17,6 +17,9 @@
                     <a href="{{route('user.index')}}" class="btn btn-primary">
                         Usuarios
                     </a>
+                    <a href="{{route('post.index')}}" class="btn btn-primary">
+                        Posts
+                    </a>
                 </div>
             </div>
         </div>
